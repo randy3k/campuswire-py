@@ -18,7 +18,6 @@ CAMPUSWIRE_REPUTATION_URL = "https://api.campuswire.com/v1/group/{}/reputation_r
 
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
-
         self.token = token
 
     def __call__(self, r):
@@ -37,6 +36,8 @@ def service_account_from_dict(info, scopes=gspread.auth.DEFAULT_SCOPES):
 
 
 def get_cw_token(sh):
+    # token is stored in the "token" sheet
+    # as the token will expire every two weeks, the token is renewed when the script is executed
     try:
         token = sh.worksheet("token").cell(1, 1).value
     except Exception:
