@@ -1,0 +1,29 @@
+name: update campuswire reputation
+
+# on:
+#   schedule:
+#     # every 12 hour
+#     - cron: 0 */12 * * *
+
+on: push
+
+jobs:
+  campuswire:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+        architecture: 'x64'
+    - run: pip install -r requirements.txt
+    - run: python main.py
+      env:
+        SHEETID: ${{secrets.SHEETID}}
+        SERVICEACCOUNT: ${{secrets.SERVICEACCOUNT}}
+    - name: Create an issue upon failure
+      if: ${{ failure() }}
+      uses: maxkomarychev/oction-create-issue@v0.7.1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        title: "Failure"
