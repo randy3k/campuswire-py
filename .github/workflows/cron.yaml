@@ -1,11 +1,11 @@
 name: update campuswire reputation
 
-# on:
-#   schedule:
-#     # every 12 hour
-#     - cron: 0 */12 * * *
+on:
+  schedule:
+    # every 12 hour
+    - cron: 0 */12 * * *
 
-on: push
+# on: push
 
 jobs:
   campuswire:
