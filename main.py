@@ -96,3 +96,4 @@ for _, c in courses.iterrows():
     df = df.loc[:, ["last_name", "first_name", "email", "rep_level", "rep_points", "time"]]
 
     ws.insert_rows(df.values.tolist(), row=nrow+1)
+    print("inserted {} rows into {}".format(len(df), course))
