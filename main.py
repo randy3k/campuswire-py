@@ -89,11 +89,9 @@ for _, c in courses.iterrows():
     else:
         ws = sh.worksheet(course)
 
-    nrow = len(ws.get_all_values())
-
     df = get_cw_report(course, group, token)
     df.insert(len(df.columns), "time", datetime.utcnow().isoformat(timespec="seconds"))
     df = df.loc[:, ["last_name", "first_name", "email", "rep_level", "rep_points", "time"]]
 
-    ws.insert_rows(df.values.tolist(), row=nrow+1)
-    print("inserted {} rows into {}".format(len(df), course))
+    ws.append_rows(df.values.tolist())
+    print("appended {} row(s) into {}".format(len(df), course))
